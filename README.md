@@ -3,6 +3,11 @@ OrgaExtractor - An easy-to-use deep learning-based image processing tool for org
 
 This is currently under review.
 
+
+## Overview
+OrgaExtractor does not need to install any dependencies to run. It is designed to run on Google Colab without any extra resources.
+Details are described in jupyter notebook file.
+
 ![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_main.png)
 
 You can simply run OrgaExtractor on Colab without any hardware limitations. Please check on Orgaextractor.ipynb file.
