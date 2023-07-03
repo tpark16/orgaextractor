@@ -14,8 +14,7 @@ from torch.cuda.amp import autocast, GradScaler
 from model.ms_model import ResUNet_MS
 from utils.dataset import *
 from utils.util import *
-from postprocessing import *
-
+from utils.postprocessing import *
 import matplotlib.pyplot as plt
 from tqdm import tqdm, trange
 import medpy.metric.binary as bin
@@ -43,11 +42,10 @@ parser.add_argument("--cuda_devices", default="0", type=str,
                     help="String of cuda device indexes to be used. Indexes must be separated by a comma.")
 parser.add_argument("--mode", default="train", type=str, dest="mode")
 parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
-parser.add_argument("--fp16", action="store_true", dest="run with mixed precision")
+parser.add_argument("--fp16", action="store_true", help="run with mixed precision")
 
 args = parser.parse_args()
 
-## 트레이닝 파라메터 설정하기
 lr = args.lr
 batch_size = args.batch_size
 num_epoch = args.num_epoch
@@ -61,12 +59,8 @@ mode = args.mode
 train_continue = args.train_continue
 fp16 = args.fp16
 
-
-# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 device = "cuda"
 os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda_devices
-
-# torch.cuda.empty_cache()
 
 print("learning rate: %.4e" % lr)
 print("batch size: %d" % batch_size)
@@ -77,17 +71,14 @@ print("log dir: %s" % log_dir)
 print("result dir: %s" % result_dir)
 print("mode: %s" % mode)
 
-## 디렉토리 생성하기
 if not os.path.exists(result_dir):
     os.makedirs(os.path.join(result_dir, 'png'))
     os.makedirs(os.path.join(result_dir, 'numpy'))
 
 
-## 네트워크 생성하기
 net = ResUNet_MS().to(device) # ResUNet_MS
 net = nn.DataParallel(module=net).to(device)
 
-## 네트워크 학습하기
 if mode == 'train':
 
     dataset_train = Dataset(data_dir=os.path.join(data_dir, 'train'), train_transform=True)
@@ -104,6 +95,7 @@ if mode == 'train':
     num_batch_train = np.ceil(num_data_train / batch_size)
     num_batch_val = np.ceil(num_data_val / batch_size)
 else:
+    batch_size = 1
     dataset_test = Dataset(data_dir=data_dir, train_transform=False)
     loader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=8)
     
@@ -227,7 +219,7 @@ if mode == 'train':
 # TEST MODE
 
 else:
-    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim, mode=mode)
 
     if not os.path.exists(os.path.join(result_dir, 'png')):
         os.mkdir(os.path.join(result_dir, 'png'))
@@ -238,13 +230,15 @@ else:
         net.eval()
         for batch, data in enumerate(loader_test, 1):
 
+            input = data.to(device, dtype=torch.float)
             if fp16:
                 with autocast():
-                    input = data.to(device, dtype=torch.float)
                     output = net(input)
             else:
-                input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
-                output = fn_tonumpy(fn_class(output))
+                output = net(input)
+            
+            input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
+            output = fn_tonumpy(fn_class(output))
 
             for j in range(input.shape[0]):
                 

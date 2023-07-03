@@ -1,28 +1,31 @@
 # OrgaExtractor
-OrgaExtractor - An easy-to-use deep learning-based image processing tool for organoid image analysis
+An easy-to-use deep learning-based image processing tool for organoid image analysis
 
-![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_main.png)
+![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_overview.png)
 
 <font size="1"> This repo is under review. </font>
 
+![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_confusionMatrix.png)
+The number of organoids counted by OrgaExtractor. (a) Confusion matrix in the context of detection. (b) Confusion matrix in the context of instance segmentation.
+
+OrgaExtractor can analysis ~82% of organoids in the image.
+
 ## Introduction
-OrgaExtractor is designed to overcome the current inefficientcy in analyzing organoid images. It is Deep Learning based organoid segmentation algorithm that produces several metrics, which users can define themselves in need. OrgaExtractor was trained on 15 in-house colon organoid images and achieved 0.867 for raw segmentation, 0.853 after post-processing. It provides some basic metrics that reflect the actual organoid culture conditions, such as the number of organoids in the image, projected area of organoids, diameter, perimeter, major and minor axis length, eccentricity, roundness, solidity, and circularity. Users can freely define their metrics as long as they are computable with [OpenCV](https://opencv.org/) libarary. 
+OrgaExtractor is designed to overcome the current inefficientcy in analyzing organoid images. It is Deep Learning based organoid segmentation algorithm that produces several metrics, which users can define themselves in need. OrgaExtractor was trained on 15 in-house colon organoid images and achieved dice similarity coefficient(DSC) of 0.867 for raw segmentation, 0.853 after post-processing. It also provides some basic metrics that reflect the actual organoid culture conditions, such as the number of organoids in the image, projected area of organoids, diameter, perimeter, major and minor axis length, eccentricity, roundness, solidity, and circularity. Users can freely define their metrics as long as they are calculable with [OpenCV](https://opencv.org/) libarary. 
 
 OrgaExtractor is intended to be:
 * User-friendly tool that requires minimal image adjustment for researchers who unfamiliar with programming. 
 * tested and fine-tuned on user's custom dataset
 
-OrgaExtractor does not require to install any dependencies to run. It is designed to run on Google Colab without any hardware limitation for those who are not familiar with programming. However, we also provide out-of-box method so that you can adapt the code in need.
-
-Details are described in jupyter notebook file.
+OrgaExtractor does not require to install any dependencies to run. It is designed to run on Google Colab without any hardware limitation. Furthermode, we provide out-of-box method so that you can adapt the code in need.
 
 ## Using OrgaExtractor
-You can use OrgaExtractor in two ways.
+You can use OrgaExtractor on either google colab or local computer.
 
 ### Running on Google Colab
 If you are not familiar with programming, you can easily use OrgaExtractor by uploading your own dataset [here](https://colab.research.google.com/github/tpark16/orgaextractor/blob/main/Orgaextractor.ipynb)
 
-It runs by executing all cells after you upload an image to colab's `test` folder by dragging. The result will be saved under `result` folder.
+It runs by executing all cells after you upload an image to colab's `test` folder. The result will be saved under `result` folder.
 
 
 ### Running on source code
@@ -76,11 +79,10 @@ extent = float(area)/rect_area
 ```
 
 ## Dataset
-Dataset is available at [here](https://drive.google.com/drive/folders/17K4N7gEZUqAcwf9N2-I5DPbywwPvzAvo)
+Our Dataset is available at [here](https://drive.google.com/drive/folders/17K4N7gEZUqAcwf9N2-I5DPbywwPvzAvo).
 
-## Model
-Our pretrained model is available at [here](https://drive.google.com/uc?id=1wOzvgroIgpEA9kaYfbz0Q3vUL5GY1my9)
+Dataset consists of three part; train, validation, and test. Each part has 15, 5, 10 organoid images, respectively
 
 ## Contact
 Taeyun Park (ygj03084@yuhs.ac)
-Taeyul Kim (kimkj1731@yuhs.ac)
+Taeyul K. Kim (kimkj1731@yuhs.ac)

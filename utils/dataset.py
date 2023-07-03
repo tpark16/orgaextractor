@@ -18,8 +18,10 @@ class Dataset(torch.utils.data.Dataset):
 
         lst_data = os.listdir(self.data_dir)
 
-        self.lst_label = [f for f in lst_data if f.startswith('label')].sort()
-        self.lst_input = [f for f in lst_data if f.startswith('input')].sort()
+        self.lst_label = [f for f in lst_data if f.startswith('label')]
+        self.lst_input = [f for f in lst_data if f.startswith('input')]
+        self.lst_label.sort()
+        self.lst_input.sort()
 
     def __len__(self):
         return len(self.lst_label) if self.train_transform else len(self.lst_input)
