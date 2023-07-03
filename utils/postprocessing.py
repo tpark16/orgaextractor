@@ -69,9 +69,6 @@ def analysis(img_contour, contours, hie):
         Roundness = (4*area) / (pi * (majorAxisLength**2))
         solidity = float(area) / hull_area
 
-
-
-
         cv2.putText(c_im, text=str(i+1), org=(cX, cY), fontFace= cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255,255,255),
                 thickness=1, lineType=cv2.LINE_AA)
         

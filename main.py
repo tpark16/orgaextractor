@@ -39,7 +39,7 @@ parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_d
 parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
 parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
 
-parser.add_argument("--cuda_devices", default="0, 1", type=str,
+parser.add_argument("--cuda_devices", default="0", type=str,
                     help="String of cuda device indexes to be used. Indexes must be separated by a comma.")
 parser.add_argument("--mode", default="train", type=str, dest="mode")
 parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
