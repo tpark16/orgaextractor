@@ -1,9 +1,9 @@
 # OrgaExtractor
 An easy-to-use deep learning-based image processing tool for organoid image analysis
+<font size="1"> This repo is under review. </font>
 
 ![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_overview.png)
 
-<font size="1"> This repo is under review. </font>
 
 ![alt text](https://github.com/tpark16/orgaextractor/blob/main/OrgaExtractor_confusionMatrix.png)
 The number of organoids counted by OrgaExtractor. (a) Confusion matrix in the context of detection. (b) Confusion matrix in the context of instance segmentation.
