@@ -25,7 +25,7 @@ You can use OrgaExtractor on either google colab or local computer.
 ### Running on Google Colab
 If you are not familiar with programming, you can easily use OrgaExtractor by uploading your own dataset [here](https://colab.research.google.com/github/tpark16/orgaextractor/blob/main/Orgaextractor.ipynb)
 
-It runs by executing all cells after you upload an image to colab's `test` folder. The result will be saved under `result` folder.
+It runs by executing all cells after you upload an image to colab's `test` folder. The result will be saved under `result` folder. Make sure that your dataset starts with "input", so it looks like "input_XXX".
 
 
 ### Running on source code
